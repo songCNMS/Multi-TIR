@@ -7,3 +7,6 @@
 [submodule "verl_tool"]
 	path = verl_tool
 	url = https://github.com/songCNMS/verl_tool
+[submodule "Search_R1"]
+	path = Search_R1
+	url = https://songCNMS@github.com/songCNMS/Search_R1.git
