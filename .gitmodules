@@ -10,3 +10,6 @@
 [submodule "Search_R1"]
 	path = Search_R1
 	url = https://songCNMS@github.com/songCNMS/Search_R1.git
+[submodule "verl-tool"]
+	path = verl-tool
+	url = https://github.com/TIGER-AI-Lab/verl-tool.git
