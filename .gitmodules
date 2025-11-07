@@ -3,7 +3,7 @@
 	url = https://github.com/songCNMS/PIKE-RAG-github.git
 [submodule "LLaMA-Factory"]
 	path = LLaMA-Factory
-	url = https://github.com/hiyouga/LLaMA-Factory.git
+	url = https://github.com/songCNMS/LLaMA-Factory.git
 [submodule "verl_tool"]
 	path = verl_tool
 	url = https://github.com/songCNMS/verl_tool.git
