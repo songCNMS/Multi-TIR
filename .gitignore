@@ -183,3 +183,5 @@ generated_predictions.jsonl
 predictions_score.json
 llama-factory
 wandb
+verl_tool_rare
+retrieverenv
