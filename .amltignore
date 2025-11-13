@@ -1,0 +1,17 @@
+retrieveenv
+vllmenv
+.venv
+
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+Search_R1
+verl_tool
+LLaMA-Factory
+wandb
+logs
+docs

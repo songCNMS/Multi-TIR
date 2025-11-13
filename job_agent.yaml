@@ -1,0 +1,81 @@
+description: SFT job for Qwen2.5
+
+environment:
+  image: amlt-sing/acpt-torch2.7.1-py3.10-cuda12.6-ubuntu22.04
+
+  setup:
+    - apt-get update -y
+    - ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so
+    - export LD_LIBRARY_PATH=/usr/local/nvidia/lib64:$$LD_LIBRARY_PATH
+    - export PATH=$$HOME/.local/bin:$$PATH
+    - export PYTHONPATH=$$PWD:$$PYTHONPATH
+    - conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+    - conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+    - apt install -y libmpich-dev
+    - apt-get install g++-aarch64-linux-gnu
+    - apt install -y libopenmpi-dev
+    - apt install -y g++
+    - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+    - pip install uv
+    # - pip install --user -r requirements.txt
+    # - pip install --user -r PIKE-RAG-github/requirements.txt
+    # - conda install -y mpi4py 
+    # - pip install --user wandb datasets flashinfer-python langchain_huggingface rouge_score jsonlines glob bottle omegaconf huggingface_hub[hf_xet] 
+    # - pip install --user jsonlines
+    # - pip install --user accelerate
+    # - pip install --user unsloth
+    # - pip install --user huggingface_hub[hf_xet]
+    # - pip install --user "deepspeed>=0.10.0,<=0.16.9"
+    # - pip install --user -U "transformers!=4.52.0,<=4.52.4,>=4.49.0"
+    # - pip install --user vllm
+    # - pip install --user -e ".[torch,metrics]"
+
+
+
+    
+target:
+  service: sing
+  # name: msrresrchvc
+  # name: msroctobasicvc
+  # name: msrresrchbasicvc
+  # name: msrresrchlab
+  name: palisades33
+  # workspace_name: rag-workspace-eastus
+  workspace_name: workspace-msra-ml-miic-sg-oc
+
+data:
+  local_dir: ./data/
+  remote_dir: data/
+
+storage:
+  data:
+    storage_account_name: storage4cluster
+    container_name: lesong
+    mount_dir: /mnt/storage
+
+code:
+  # local directory of the code. this will be uploaded to the server.
+  # $CONFIG_DIR is expanded to the directory of this config file
+  local_dir: ./
+  
+
+jobs:
+- name: agent-gpt41
+  sku: 1x40G8
+  # sku: G4
+  identity: managed
+  process_count_per_node: 1
+  tags: [Project_Name:ToolDescOpt]
+  submit_args:
+    env:
+        {_AZUREML_SINGULARITY_JOB_UAI: "/subscriptions/e033d461-1923-44a7-872b-78f1d35a86dd/resourcegroups/rg-msra-oc-ml-miic-sg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/msra-oc-ml-miic-sg-mi",
+        WANDB_API_KEY: "",
+        HF_TOKEN: "",
+        HF_CACHE_DIR: "/mnt/storage/data/huggingface"}
+  sla_tier: Premium # Standard, Premium
+  command:
+    - bash run_agent.sh 17
+    - bash run_agent.sh 11
+    - bash run_agent.sh 13
+    - bash run_agent.sh 15
+    - bash run_sft_data.sh
