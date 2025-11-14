@@ -2,6 +2,7 @@
 # conda create -n retriever python=3.10 -y
 # source ~/anaconda3/etc/profile.d/conda.sh
 # conda activate retriever
+echo "Setting up Retriever API environment..."
 uv venv retrieverenv -p 3.10 --clear
 source retrieverenv/bin/activate
 conda install -y pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=12.1 -c pytorch -c nvidia
@@ -15,7 +16,8 @@ bash build_index_symptoms.sh
 bash build_index.sh
 cd ../../..
 cd Search_R1
-bash retrieval_launch.sh &
-bash retrieval_launch_symptoms.sh &
+echo "Launching Retriever API servers..."
+bash retrieval_launch.sh $1 &
+bash retrieval_launch_symptoms.sh $1 &
 # bash retrieval_logprobs_launch.sh &
-sleep infinity
+sleep 120

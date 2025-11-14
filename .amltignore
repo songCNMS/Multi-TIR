@@ -9,7 +9,6 @@ __pycache__
 
 # C extensions
 *.so
-Search_R1
 verl_tool
 LLaMA-Factory
 wandb
