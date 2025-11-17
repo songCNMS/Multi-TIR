@@ -8,7 +8,8 @@ source retrieverenv/bin/activate
 conda install -y pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=12.1 -c pytorch -c nvidia
 uv pip install transformers datasets pyserini omegaconf
 # conda install -y -c pytorch -c nvidia faiss-gpu=1.8.0
-uv pip install faiss-gpu-cu12
+# conda install -c conda-forge faiss-gpu
+uv pip install faiss-gpu
 uv pip install accelerate
 uv pip install uvicorn fastapi tqdm
 cd Search_R1/search_r1/search
