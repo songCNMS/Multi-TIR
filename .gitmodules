@@ -1,18 +1,9 @@
-[submodule "PIKE_RAG_media"]
-	path = PIKE_RAG_media
-	url = https://github.com/songCNMS/PIKE-RAG-github.git
 [submodule "LLaMA-Factory"]
 	path = LLaMA-Factory
 	url = https://github.com/songCNMS/LLaMA-Factory.git
-[submodule "verl_tool"]
-	path = verl_tool
-	url = https://github.com/songCNMS/verl_tool.git
 [submodule "Search_R1"]
 	path = Search_R1
 	url = https://songCNMS@github.com/songCNMS/Search_R1.git
-[submodule "verl-tool"]
-	path = verl-tool
-	url = ./verl-tool
 [submodule "PIKE_RAG"]
 	path = PIKE_RAG
 	url = https://github.com/songCNMS/PIKE-RAG-github.git

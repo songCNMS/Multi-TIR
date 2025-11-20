@@ -9,9 +9,10 @@ conda install -y pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cu
 uv pip install transformers datasets pyserini omegaconf
 # conda install -y -c pytorch -c nvidia faiss-gpu=1.8.0
 # conda install -c conda-forge faiss-gpu
-uv pip install faiss-gpu
+uv pip install faiss-cpu
 uv pip install accelerate
 uv pip install uvicorn fastapi tqdm
+uv pip install -U "numpy<2.0"
 cd Search_R1/search_r1/search
 bash build_index_symptoms.sh
 bash build_index.sh
