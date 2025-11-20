@@ -7,3 +7,6 @@
 [submodule "PIKE_RAG"]
 	path = PIKE_RAG
 	url = https://github.com/songCNMS/PIKE-RAG-github.git
+[submodule "agent-lightning"]
+	path = agent-lightning
+	url = https://github.com/songCNMS/agent-lightning
