@@ -25,4 +25,4 @@ cd PIKE_RAG/tau2_bench
 uv pip install -e .
 cd ..
 
-python train_tau_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 4 2>&1 | tee agent_train.log
+python train_tau_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
