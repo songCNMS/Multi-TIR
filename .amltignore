@@ -23,5 +23,6 @@ benchmarks
 *.jpg
 vert_tool.egg-info
 .venv
-data
 log.txt
+data
+PIKE_RAG/tau2_bench/web/leaderboard

@@ -23,6 +23,7 @@ uv pip install click==8.2.1
 uv pip install -U torch==2.8.0 torchvision
 cd PIKE_RAG/tau2_bench
 uv pip install -e .
+uv pip install "numpy<2.0"
 cd ..
 
 python train_tau_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
