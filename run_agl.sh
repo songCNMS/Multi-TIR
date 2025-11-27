@@ -38,6 +38,6 @@ uv pip install jsonlines
 uv pip install -U "numpy<2.0"
 
 cd PIKE_RAG
-
+bash search_r1/start_retriever.sh true
 
 python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
