@@ -50,10 +50,11 @@ if [ "$LOCAL_IP" == "node-0" ]; then
     sleep infinity
 fi
 if [ "$LOCAL_IP" == "node-1" ]; then
-    cd PIKE_RAG; bash start_summary_api.sh
+    cd PIKE_RAG; bash start_summary_api.sh 0,1,2,3
+    bash start_baichuan_API.sh 4,5,6,7 4
     sleep infinity
 fi
-if [ "$LOCAL_IP" == "node-2" ]; then
-    bash start_baichuan_API.sh 0,1,2,3 4
-    sleep infinity
+# if [ "$LOCAL_IP" == "node-2" ]; then
+#     bash start_baichuan_API.sh 0,1,2,3 4
+#     sleep infinity
 fi
