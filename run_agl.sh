@@ -1,14 +1,14 @@
 cd PIKE_RAG
-mv env_configs/.env_amlt env_configs/.env
+# mv env_configs/.env_amlt env_configs/.env
 
-bash search_r1/start_retriever.sh true
+# bash search_r1/start_retriever.sh true
 
-if $3; then
-    echo "Dense reward is ON"
-    bash start_summary_api.sh
-else
-    echo "Dense reward is OFF"
-fi
+# if $3; then
+#     echo "Dense reward is ON"
+#     bash start_summary_api.sh
+# else
+#     echo "Dense reward is OFF"
+# fi
 
 cd ..
 cd agent-lightning
@@ -37,7 +37,7 @@ uv pip install -U torch==2.8.0 torchvision
 uv pip install jsonlines
 uv pip install -U "numpy<2.0"
 
-cd PIKE_RAG
-bash search_r1/start_retriever.sh true
+# cd PIKE_RAG
+# bash search_r1/start_retriever.sh true
 
-python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
+# python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
