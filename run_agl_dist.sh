@@ -35,7 +35,7 @@ if [ "$LOCAL_IP" == "node-0" ]; then
         --no-default-groups
     cd ..
     source agent-lightning/.venv/bin/activate
-    uv pip install -r PIKE_RAG/requirements.txt
+    uv pip install -U -r PIKE_RAG/requirements.txt
     # uv pip install -U agentlightning[verl]
     uv pip install vllm==0.10.2
     uv pip install verl==0.5.0
@@ -46,11 +46,11 @@ if [ "$LOCAL_IP" == "node-0" ]; then
     uv pip install -U "numpy<2.0"
     bash start_retriever_API.sh 0,1,2,3
     cd PIKE_RAG
-    python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --dense-reward-on 2>&1 | tee agent_train.log
+    python train_rare_agent.py --llm-proxy --model $1 --n-gpus $2 --dense-reward-on 2>&1 | tee agent_train.log
     sleep infinity
 fi
 if [ "$LOCAL_IP" == "node-1" ]; then
-    cd PIKE_RAG; bash start_summary_api.sh 0,1,2,3
+    cd PIKE_RAG; bash start_summary_api.sh 0,1,2,3; cd ..
     bash start_baichuan_API.sh 4,5,6,7 4
     sleep infinity
 fi
