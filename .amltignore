@@ -23,7 +23,6 @@ benchmarks
 *.jpg
 vert_tool.egg-info
 .venv
-data
 log.txt
 node_modules
 *.log

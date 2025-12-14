@@ -5,14 +5,18 @@ alpha=16
 method=$1
 cd LLaMA-Factory
 echo "Setting up LLaMA-Factory SFT environment..."
-uv venv -p 3.10 --clear
-source .venv/bin/activate
-uv pip install -r requirements.txt 
-uv pip install wandb datasets flashinfer-python langchain_huggingface rouge_score jsonlines bottle omegaconf huggingface_hub[hf_xet]
-uv pip install vllm
-uv pip install "deepspeed>=0.10.0,<=0.16.9"
-uv pip install -e ".[torch,metrics]"
-uv pip install omegaconf
+if $2; then
+    uv venv -p 3.10 --clear
+    source .venv/bin/activate
+    uv pip install -r requirements.txt 
+    uv pip install wandb datasets flashinfer-python langchain_huggingface rouge_score jsonlines bottle omegaconf huggingface_hub[hf_xet]
+    uv pip install vllm
+    uv pip install "deepspeed>=0.10.0,<=0.16.9"
+    uv pip install -e ".[torch,metrics]"
+    uv pip install omegaconf
+else
+    source .venv/bin/activate
+fi
 echo "Preparing SFT data..."
 python prepare_sft_data.py file_loc=/mnt/storage/data/search/data_output/data_sft_0.jsonl
 echo "Starting LLaMA-Factory SFT training..."
