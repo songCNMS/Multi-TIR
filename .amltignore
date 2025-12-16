@@ -15,7 +15,6 @@ wandb
 logs
 docs
 amlt
-data
 *.log
 log.txt
 LLaMA-Factory
