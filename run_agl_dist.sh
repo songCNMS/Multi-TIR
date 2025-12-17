@@ -16,7 +16,10 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 # export RAY_ADDRESS="$HEAD_IP:$PORT"
 
-mv PIKE_RAG/env_configs/.env_amlt PIKE_RAG/env_configs/.env
+export NCCL_SHM_DISABLE=1
+export NCCL_P2P_DISABLE=1
+
+cp PIKE_RAG/env_configs/.env_amlt PIKE_RAG/env_configs/.env
 
 if [ "$LOCAL_IP" == "$HEAD_IP" ]; then
     cd agent-lightning
@@ -46,7 +49,7 @@ if [ "$LOCAL_IP" == "$HEAD_IP" ]; then
     uv pip install -U "numpy<2.0"
     cd PIKE_RAG
     bash search_r1/start_retriever.sh true
-    python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --dense-reward-on 2>&1 | tee agent_train.log
+    DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
     sleep infinity
 else
     cd PIKE_RAG; bash start_summary_api.sh
