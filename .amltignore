@@ -24,8 +24,10 @@ benchmarks
 vert_tool.egg-info
 .venv
 log.txt
-data
 PIKE_RAG/tau2_bench/web/leaderboard
 node_modules
 log.txt
 agent_train.log
+synthesized_retail_tasks.json
+PIKE_RAG/tau2_bench/data
+LLaMA-Factory/tau_bench

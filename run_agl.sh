@@ -31,8 +31,9 @@ cd ..
 export NCCL_SHM_DISABLE=1
 export NCCL_P2P_DISABLE=1
 
-# python train_tau_agent.py --llm-proxy --model /mnt/storage/data/tau/logs/sft-tool-calling/Qwen/Qwen3-4B-Instruct-2507-r16-alpha16 --n-gpus 2 --exp-name sft-tc 2>&1 | tee agent_train.log
+# python train_tau_agent.py --llm-proxy --model /mnt/storage/data/tau/logs/sft-tool-calling/Qwen/Qwen3-4B-Instruct-2507-r16-alpha16
+# /mnt/storage/data/tau/logs/sft-tool-calling/Qwen/Qwen3-4B-Instruct-2507-r16-alpha16 --n-gpus 2 --exp-name sft-tc 2>&1 | tee agent_train.log
 
-python train_tau_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 2 --exp-name origin-nontc 2>&1 | tee agent_train.log
+# python train_tau_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --exp-name hindsight_tc 2>&1 | tee agent_train.log
 
-python train_tau_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $3 2>&1 | tee agent_train.log
+python train_tau_agent.py --llm-proxy --model $1 --exp-name $2 2>&1 | tee agent_train.log
