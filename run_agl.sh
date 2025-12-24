@@ -54,5 +54,5 @@ export NCCL_P2P_DISABLE=1
 if $3; then
     DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
 else
-    python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 2>&1 | tee agent_train.log
+    python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 $5 2>&1 | tee agent_train.log
 fi

@@ -26,3 +26,4 @@ vert_tool.egg-info
 log.txt
 node_modules
 *.log
+amltenv
