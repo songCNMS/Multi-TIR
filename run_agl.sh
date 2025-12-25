@@ -1,12 +1,12 @@
 cd PIKE_RAG
-mv env_configs/.env_amlt env_configs/.env
+cp env_configs/.env_amlt env_configs/.env
 
 bash search_r1/start_retriever.sh true
 
 
 if $3; then
     echo "Dense reward is ON"
-    bash start_summary_api.sh Qwen/Qwen3-4B-Instruct-2507 0,1,2,3 &
+    bash start_summary_api.sh Qwen/Qwen3-4B-Instruct-2507 0,1 &
 else
     echo "Dense reward is OFF"
 fi
@@ -56,3 +56,5 @@ if $3; then
 else
     CUDA_VISIBLE_DEVICES=$6  DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $5 2>&1 | tee agent_train.log
 fi
+
+# CUDA_VISIBLE_DEVICES=0,1,2,3 DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 4 --exp-name b200-wot-sum-ds  2>&1 | tee agent_train.log
