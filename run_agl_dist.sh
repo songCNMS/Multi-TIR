@@ -49,9 +49,39 @@ if [ "$LOCAL_IP" == "$HEAD_IP" ]; then
     uv pip install -U "numpy<2.0"
     cd PIKE_RAG
     bash search_r1/start_retriever.sh true
-    DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $3 2>&1 | tee agent_train.log
+    DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name wth_ds 2>&1 | tee agent_train.log
+    sleep infinity
+elif [ "$LOCAL_IP" == "node-1" ]; then
+    cd PIKE_RAG; bash start_summary_api.sh Qwen/Qwen3-4B-Instruct-2507 0,1,2,3,4,5,6,7
     sleep infinity
 else
-    cd PIKE_RAG; bash start_summary_api.sh
+    cd agent-lightning
+    cd dashboard
+    npm ci
+    npm run build
+    cd ..
+    pip install uv
+    uv sync --frozen \
+        --extra apo \
+        --extra verl \
+        --group dev \
+        --group torch-gpu-stable \
+        --group trl \
+        --group agents \
+        --no-default-groups
+    cd ..
+    source agent-lightning/.venv/bin/activate
+    uv pip install -r PIKE_RAG/requirements.txt
+    # uv pip install -U agentlightning[verl]
+    uv pip install vllm==0.10.2
+    uv pip install verl==0.5.0
+    uv pip install flash-attn --no-build-isolation
+    uv pip install click==8.2.1
+    uv pip install -U torch==2.8.0 torchvision
+    uv pip install jsonlines
+    uv pip install -U "numpy<2.0"
+    cd PIKE_RAG
+    bash search_r1/start_retriever.sh true
+    DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name wot_ds 2>&1 | tee agent_train.log
     sleep infinity
 fi
