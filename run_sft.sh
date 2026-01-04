@@ -1,6 +1,7 @@
 base_model=Qwen/Qwen3-4B-Instruct-2507
 r=16
 alpha=16
+bash run_sft_data.sh
 # method=sft-tool-calling
 method=$1
 cd LLaMA-Factory

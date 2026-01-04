@@ -27,3 +27,4 @@ log.txt
 node_modules
 *.log
 amltenv
+vllmenv

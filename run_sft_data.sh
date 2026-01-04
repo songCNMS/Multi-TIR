@@ -1,5 +1,7 @@
 cd PIKE_RAG
+uv venv -p 3.10 --clear
 source .venv/bin/activate
-python agent_data_traj.py task=rare_disease
-python agent_data_sft.py task=rare_disease iter=0
+uv pip install -r requirements.txt 
+python agent_data_traj.py task=search iter=0
+python agent_data_sft.py task=search iter=0
 cd ..
