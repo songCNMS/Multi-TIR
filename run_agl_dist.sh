@@ -82,6 +82,8 @@ else
     uv pip install -U "numpy<2.0"
     cd PIKE_RAG
     bash search_r1/start_retriever.sh true
-    tool_call_dense_rewards_on=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name wot_ds 2>&1 | tee agent_train.log
+    TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name wot_ds 2>&1 | tee agent_train.log
     sleep infinity
 fi
+
+# TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name wot_ds 2>&1 | tee agent_train.log
