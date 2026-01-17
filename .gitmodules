@@ -10,3 +10,6 @@
 [submodule "agent-lightning"]
 	path = agent-lightning
 	url = https://github.com/songCNMS/agent-lightning
+[submodule "srl"]
+	path = srl
+	url = https://github.com/lee-junjie/srl.git

@@ -49,7 +49,7 @@ if [ "$LOCAL_IP" == "$HEAD_IP" ]; then
     uv pip install -U "numpy<2.0"
     cd PIKE_RAG
     bash search_r1/start_retriever.sh true
-    DENSE_REWARD_ON=$3 python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $4 2>&1 | tee agent_train.log
+    FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $3 2>&1 | tee agent_train.log
     sleep infinity
 elif [ "$LOCAL_IP" == "node-1" ]; then
     cd PIKE_RAG; bash start_summary_api.sh Qwen/Qwen3-4B-Instruct-2507 0,1,2,3,4,5,6,7
@@ -82,8 +82,9 @@ else
     uv pip install -U "numpy<2.0"
     cd PIKE_RAG
     bash search_r1/start_retriever.sh true
-    TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name wot_ds 2>&1 | tee agent_train.log
+    python agent_data_traj.py task=search iter=0
+    FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=true DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model $1 --n-gpus $2 --exp-name $3 2>&1 | tee agent_train.log
     sleep infinity
 fi
 
-# TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name wot_ds 2>&1 | tee agent_train.log
+# FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name fa-gpt_tr-off_rm-on 2>&1 | tee agent_train.log
