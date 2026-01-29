@@ -7,10 +7,10 @@ WORKDIR /workspace
 
 # Environment variables
 ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
-ENV PATH=${HOME}/.local/bin:${PATH}
-ENV PYTHONPATH=${PWD}:${PYTHONPATH}
-ENV NCCL_SHM_DISABLE=1
-ENV NCCL_P2P_DISABLE=1
+# ENV PATH=${HOME}/.local/bin:${PATH}
+# ENV PYTHONPATH=${PWD}:${PYTHONPATH}
+# ENV NCCL_SHM_DISABLE=1
+# ENV NCCL_P2P_DISABLE=1
 ENV HF_CACHE_DIR=/mnt/storage/data/huggingface
 ENV WANDB_API_KEY=""
 ENV HF_TOKEN=""
@@ -18,17 +18,21 @@ ENV HF_TOKEN=""
 # System setup and dependencies
 RUN apt-get update -y && \
     ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so || true && \
-    apt install -y libmpich-dev g++-aarch64-linux-gnu libopenmpi-dev g++ npm && \
+    apt install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt-get update && \
+    apt install -y python3.10 python3.10-venv python3.10-dev python3-pip git curl \
+        libmpich-dev g++-aarch64-linux-gnu libopenmpi-dev g++ npm && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Accept conda TOS
-RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
-    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+# Create python3 symlink
+RUN ln -s /usr/bin/python3.10 /usr/bin/python || true && \
+    ln -s /usr/bin/python3.10 /usr/bin/python3 || true
 
 # Install uv package manager
-RUN pip install uv
+RUN pip3 install --break-system-packages uv
 
 # Copy the project files
 COPY . /workspace/
@@ -64,15 +68,15 @@ RUN . /workspace/agent-lightning/.venv/bin/activate && \
     uv pip install "numpy<2.0"
 
 # Install tau2_bench
-WORKDIR /workspace/PIKE_RAG/tau2_bench
-RUN . /workspace/agent-lightning/.venv/bin/activate && \
-    uv pip install -e .
+# WORKDIR /workspace/PIKE_RAG/tau2_bench
+# RUN . /workspace/agent-lightning/.venv/bin/activate && \
+#     uv pip install -e .
 
 # Set final working directory
 WORKDIR /workspace/PIKE_RAG
 
 # Activate virtual environment in shell sessions
-RUN echo "source /workspace/agent-lightning/.venv/bin/activate" >> ~/.bashrc
+# RUN echo "source /workspace/agent-lightning/.venv/bin/activate" >> ~/.bashrc
 
 # Default command - activate venv and keep container running
 CMD ["/bin/bash", "-c", "source /workspace/agent-lightning/.venv/bin/activate && bash"]
