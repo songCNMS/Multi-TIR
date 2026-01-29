@@ -87,4 +87,5 @@ else
     sleep infinity
 fi
 
-# FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name fa-gpt_tr-off_rm-on 2>&1 | tee agent_train.log
+# FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=false DENSE_REWARD_ON=true python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name fa-gpt_tr-off_rm-on_sum-gpt 2>&1 | tee agent_train.log
+# FINAL_ANSWER_MODEL=gpt TOOL_CALL_DENSE_REWARD_ON=true DENSE_REWARD_ON=false python train_search_agent.py --llm-proxy --model Qwen/Qwen3-4B-Instruct-2507 --n-gpus 8 --exp-name fa-gpt_tr-on_rm-off_sum-gpt 2>&1 | tee agent_train.log
